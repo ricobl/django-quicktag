@@ -61,23 +61,21 @@ def parse_args(parser, token):
     """
 
     # Get the template tag bits removing first bit (tag name)
-    bits = token.split_contents()[1:]
+    contents = ''.join(token.split_contents()[1:])
     # Initial arguments
     args = []
     kwargs = {}
 
     # If there are arguments to parse, compiles filters for each
     # argument and separate simple and keyword arguments apart
-    if bits:
-        bits = iter(bits)
-        for bit in bits:
-            for arg in bit.split(","):
-                m = re_kw.match(arg)
-                if m:
-                    kw, arg = m.group(1).strip(), m.group(2)
-                    kwargs[kw] = parser.compile_filter(arg)
-                elif arg:
-                    args.append(parser.compile_filter(arg))
+    if contents:
+        for arg in contents.split(","):
+            m = re_kw.match(arg)
+            if m:
+                kw, arg = m.group(1).strip(), m.group(2)
+                kwargs[kw] = parser.compile_filter(arg)
+            elif arg:
+                args.append(parser.compile_filter(arg))
 
     # Return the parsed arguments
     return args, kwargs
