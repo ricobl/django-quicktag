@@ -3,12 +3,16 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = ''        
-DATABASE_USER = ''       
-DATABASE_PASSWORD = ''  
-DATABASE_HOST = ''     
-DATABASE_PORT = ''    
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
 
 SECRET_KEY = '@d(%kjlm=@8g+!nf+-(7$6+mtl&p-4-4#q$hu2pe0obegok7lw'
 
