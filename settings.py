@@ -35,8 +35,8 @@ TEMPLATE_DIRS = (
 )
 
 TEST_RUNNER = 'nose_runner.run_tests'
-NOSE_ARGS = ['-sd', '--verbose', 'testapp/tests.py']
+NOSE_ARGS = ['-sd', '--verbose']
 
 INSTALLED_APPS = (
-    'testapp',
+    'dummyapp',
 )
