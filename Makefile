@@ -1,5 +1,5 @@
 test: clean
-	@python manage.py test -- --verbose --with-coverage --cover-package=quicktag -sd
+	@python manage.py test
 clean:
 	@find . -name "*.pyc" -delete
 install:
