@@ -6,6 +6,8 @@ import re
 from django import template
 from django.utils.encoding import smart_str
 
+from quicktag.parser import Parser
+
 # Regular expression to find named arguments
 # Matches param_name=variable param_name="value" param_name=obj.property
 re_kw = re.compile('^([^="\']+)=(.+)')
@@ -66,9 +68,13 @@ def parse_args(parser, token):
     args = []
     kwargs = {}
 
-    # If there are arguments to parse, compiles filters for each
-    # argument and separate simple and keyword arguments apart
-    for arg in contents.split(","):
+    # Use parser to split contents
+    arg_parser = Parser(contents)
+    arg_parser.parse()
+
+    # Compiles filters for each argument and separate
+    # simple and keyword arguments apart
+    for arg in arg_parser.stack:
         m = re_kw.match(arg)
         if m:
             kw, arg = m.group(1).strip(), m.group(2)

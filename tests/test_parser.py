@@ -24,7 +24,7 @@ def assert_stack_equals(text, expected_stack):
     parser = Parser(text)
     parser.parse()
 
-    assert len(parser.stack) == len(expected_stack)
+    assert_equals(len(parser.stack), len(expected_stack))
 
     for i, item in enumerate(expected_stack):
         assert_equals(parser.stack[i], item)
@@ -48,6 +48,9 @@ def test_parser_doesnt_fix_escaped_single_quotes_inside_double_quotes():
 
 def test_parser_doesnt_fix_escaped_double_quotes_inside_single_quotes():
     yield assert_stack_equals, r'"ab\'cd"', [r'"ab\'cd"']
+
+def test_parser_splits_multiple_string_args_on_commas():
+    yield assert_stack_equals, "'yo','hey'", ["'yo'", "'hey'"]
 
 def test_sample_arguments():
     kwargs = [

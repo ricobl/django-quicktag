@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from mox import Mox
+
 from tests import assert_render_equals
+
+import quicktag
 
 def test_tag_with_no_args_prints_nothing():
     yield assert_render_equals, "{% sampletag %}", ''
@@ -42,4 +46,25 @@ def test_tag_prints_variable_kwarg():
 
 def test_tag_with_space_in_arg():
     yield assert_render_equals, "{% sampletag 'yo hey' %}", "Args: yo hey"
+
+def test_tag_uses_parser():
+    mox = Mox()
+
+    token_mock = mox.CreateMockAnything()
+    token_mock.split_contents().AndReturn(['tagname'])
+
+    parser_mock = mox.CreateMockAnything()
+
+    mox.StubOutWithMock(quicktag, 'Parser')
+    quicktag.Parser('').AndReturn(parser_mock)
+    parser_mock.parse()
+    parser_mock.stack = mox.CreateMockAnything()
+    parser_mock.stack.__iter__().AndReturn(iter([]))
+
+    try:
+        mox.ReplayAll()
+        quicktag.parse_args(None, token_mock)
+        mox.VerifyAll()
+    finally:
+        mox.UnsetStubs()
 

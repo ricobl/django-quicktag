@@ -29,8 +29,9 @@ class Parser(object):
                     self.buffer = self.buffer[:-1]
                 self.inside_string = False
                 self.quote_type = None
-            self.inside_string = True
-            self.quote_type = char
+            else:
+                self.inside_string = True
+                self.quote_type = char
         elif not self.inside_string and char == ',':
             self.push_stack()
             return
