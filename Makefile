@@ -3,10 +3,13 @@ test: clean
 clean:
 	@find . -name "*.pyc" -delete
 	@rm -rf .coverage htmlcov/
-install:
+	@rm -rf build/ dist/ *.egg-info
+install: clean
 	@python setup.py install
 	@rm -rf build/ dist/ *.egg-info
 uninstall:
 	@pip uninstall django-quicktag
+register:
+	python setup.py register
 upload:
-	@sudo python setup.py sdist upload --show-response
+	python setup.py sdist upload --show-response
