@@ -91,5 +91,5 @@ Includes the template loader's first match from a list of possible templates:
         """
         Example: {% include_any variable_template,"fallback_template.html" %}
         """
-        return template.loader.render_to_string(template_list, context)
+        return render_to_string(template_list, context)
 
