@@ -17,12 +17,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from quicktag import __version__
 from setuptools import setup
 
 setup(
     name='django-quicktag',
-    version=__version__,
+    version='0.6.1',
     description='Easily create templatetags that takes args and kwargs',
     author=u'Enrico Batista da Luz',
     author_email='rico.bl@gmail.com',
